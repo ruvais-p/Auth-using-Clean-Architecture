@@ -4,6 +4,7 @@ import 'package:blogapp/feacture/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blogapp/feacture/auth/presentation/pages/signup_page.dart';
 import 'package:blogapp/feacture/auth/presentation/widget/auth_field.dart';
 import 'package:blogapp/feacture/auth/presentation/widget/auth_gradiant_button.dart';
+import 'package:blogapp/feacture/blog/presentation/pages/blog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,6 +37,9 @@ class _SignInPageState extends State<SignInPage> {
           listener: (context, state) {
             if (state is AuthFailure) {
               showSnackBar(context, state.message);
+            } else if (state is AuthSuccess) {
+              Navigator.pushAndRemoveUntil(
+                  context, BlogPage.route(), (route) => false);
             }
           },
           builder: (context, state) {
@@ -57,18 +61,24 @@ class _SignInPageState extends State<SignInPage> {
                         color: AppPallete.whiteColor,
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     AuthField(
                       hintText: "Email",
                       controller: emailController,
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     AuthField(
                       hintText: "Password",
                       controller: passwordController,
                       isObscure: true,
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     AuthGradiantButton(
                       text: "SignIn",
                       onPressed: () {
@@ -82,7 +92,9 @@ class _SignInPageState extends State<SignInPage> {
                         }
                       },
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

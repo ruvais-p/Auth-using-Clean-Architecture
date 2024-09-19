@@ -2,6 +2,8 @@ import 'package:blogapp/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blogapp/core/theme/theme.dart';
 import 'package:blogapp/feacture/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blogapp/feacture/auth/presentation/pages/signin_page.dart';
+import 'package:blogapp/feacture/blog/presentation/bloc/blog_bloc.dart';
+import 'package:blogapp/feacture/blog/presentation/pages/blog_page.dart';
 import 'package:blogapp/init_dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => serviceLocator<AuthBloc>(),
+      ),
+      BlocProvider(
+        create: (context) => serviceLocator<BlogBloc>(),
       ),
     ],
     child: const MyApp(),
@@ -48,13 +53,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isLoggedIn) {
           if (isLoggedIn) {
-            return const Scaffold(
-              body: Center(
-                child: Text(
-                  'welcome',
-                ),
-              ),
-            );
+            return const BlogPage();
           }
           return const SignInPage();
         },
